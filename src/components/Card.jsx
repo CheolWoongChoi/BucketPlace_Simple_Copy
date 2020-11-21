@@ -1,9 +1,8 @@
 import React from 'react';
 import './Card.scss';
-import { card } from '../constants/constants';
 
-const Card = () => {
-	const { id, image_url, nickname, profile_image_url } = card;
+const Card = ({ cardInfo }) => {
+	const { id, image_url, nickname, profile_image_url } = cardInfo;
 	const isScrap = true;
 
 	return (
