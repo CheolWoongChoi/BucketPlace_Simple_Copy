@@ -1,4 +1,47 @@
 
 .card-wrap {
-	
+	display: inline-block;
+	margin-top: 30px;
+	margin-left: 20px;
+	width: 268px;
+
+	&:nth-child(4n+1) {
+		margin-left: 0;
+	}
+
+	.profile-wrap {
+		display: flex;
+		align-items: center;
+
+		img {
+			width: 36px;
+		}
+
+		.nickname {
+			margin-left: 10px;
+			font-size: 15px;
+			font-family: AppleSDGothicNeo sans-serif;
+			font-weight: bold;
+			color: rgba(0, 0, 0, 0.74);
+		}
+	}
+
+	.contents-wrap {
+		position: relative;
+		margin-top: 10px;
+		height: 268px;
+
+		.img-interior {
+			border-radius: 10px;
+			width: 268px;
+		}
+
+		.img-scrap {
+			position: absolute;
+			right: 10px;
+			bottom: 10px;
+			width: 32px;
+			cursor: pointer;
+		}
+	}
 }
