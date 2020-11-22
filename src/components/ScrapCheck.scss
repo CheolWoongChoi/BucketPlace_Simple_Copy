@@ -2,7 +2,7 @@
 .scrap-check-wrap {
 	display: flex;
 	align-items: center;
-	font-family: AppleSDGothicNeo sans-serif;
+	font-family: AppleSDGothicNeo, Nanum Gothic, sans-serif;
 	width: 185px;
 	user-select: none;
 	cursor: pointer;
@@ -13,6 +13,7 @@
 
 	.text {
 		margin-left: 6px;
+		font-family: AppleSDGothicNeo, Nanum Gothic, sans-serif;
 		font-size: 15px;
 		color: rgb(66, 66, 66);
 	}

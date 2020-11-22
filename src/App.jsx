@@ -17,7 +17,7 @@ const App = () => {
 		let scrollPosY = document.documentElement.scrollTop;
 		let screenHeight = window.innerHeight;
 
-		if (scrollPosY + screenHeight >= pageHeight - 400) {
+		if (scrollPosY + screenHeight >= pageHeight - 500) {
 			dispatch(getCards(pageNum));
 		}
 	}, 250);
