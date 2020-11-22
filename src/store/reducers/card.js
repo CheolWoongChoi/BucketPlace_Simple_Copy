@@ -1,5 +1,6 @@
 
 import { GET_CARDS, ON_SCRAP_CARD, OFF_SCRAP_CARD } from '../actionTypes';
+import { getLocalStorageItem, setLocalStorageItem } from '../../utils';
 
 const initialState = {
 	cards: {},
@@ -8,7 +9,8 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-	let scrapCards = JSON.parse(localStorage.getItem('scrap_cards'));
+	const scrapCards = getLocalStorageItem('scrap_cards') || {};
+	const scrapCardsOrder = getLocalStorageItem('scrap_cards_order') || [];
 	const { type, payload } = action;
 	const { cards, pageNum } = state;
 	
@@ -35,13 +37,11 @@ export default function (state = initialState, action) {
 		case ON_SCRAP_CARD: {
 			cards[payload].is_scrap = true;
 			
-			if (scrapCards) {
-				scrapCards[payload] = cards[payload];
-			} else {
-				scrapCards = { [payload]: cards[payload] };
-			}
+			scrapCards[payload] = cards[payload];
+			scrapCardsOrder.push(payload);
 			
-			localStorage.setItem('scrap_cards', JSON.stringify(scrapCards));
+			setLocalStorageItem('scrap_cards', scrapCards);
+			setLocalStorageItem('scrap_cards_order', scrapCardsOrder);
 
 			return {
 				...state,
@@ -50,10 +50,13 @@ export default function (state = initialState, action) {
 		}
 		case OFF_SCRAP_CARD: {
 			cards[payload].is_scrap = false;
-
+			
 			delete scrapCards[payload];
-			localStorage.setItem('scrap_cards', JSON.stringify(scrapCards));
+			scrapCardsOrder.splice(scrapCardsOrder.indexOf(payload), 1);
 
+			setLocalStorageItem('scrap_cards', scrapCards);
+			setLocalStorageItem('scrap_cards_order', scrapCardsOrder);
+			
 			return {
 				...state,
 				cards: cards

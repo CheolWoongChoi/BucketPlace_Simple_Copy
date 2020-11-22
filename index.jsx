@@ -3,14 +3,16 @@ import ReactDOM from 'react-dom';
 import thunk from 'redux-thunk';
 import App from './src/App';
 import rootReducer from './src/store/reducers';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { SnackbarProvider } from 'notistack';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
 const store = createStore(
-	rootReducer, 
-	compose(applyMiddleware(thunk), composeWithDevTools())
+	rootReducer,
+	composeWithDevTools(
+		applyMiddleware(thunk)
+	)
 );
 
 ReactDOM.render(

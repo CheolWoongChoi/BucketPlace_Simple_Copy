@@ -4,6 +4,7 @@ import ScrapCheck from './components/ScrapCheck';
 import Card from './components/Card';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCards } from './store/actions';
+import { getLocalStorageItem } from './utils';
 import './App.scss';
 
 const App = () => {
@@ -11,28 +12,21 @@ const App = () => {
 	const [ isScrap, setIsScrap ] = useState(false);
 	const { cards, pageNum, isDone } = useSelector(state => state.card);
 
-	const handleWindowScroll = _.debounce(() => {
+	const handleWindowScroll = _.debounce(pageNum => {
 		let pageHeight = document.body.scrollHeight;		
 		let scrollPosY = document.documentElement.scrollTop;
 		let screenHeight = window.innerHeight;
 
 		if (scrollPosY + screenHeight >= pageHeight - 400) {
-			if (isDone) {
-				window.removeEventListener('scroll', handleWindowScroll);
-			} else {
-				dispatch(getCards(pageNum));
-			}
+			dispatch(getCards(pageNum));
 		}
 	}, 250);
 
 	const renderScrapCards = () => {
-		const scrapCardsArray = [];
-		const scarpCardsObject = JSON.parse(localStorage.getItem('scrap_cards'));
-
-		_.forOwn(scarpCardsObject, (cardInfo, key) => {
-			scrapCardsArray.push(<Card key={key} cardInfo={cardInfo} />)
-		});
-
+		const scarpCardsObject = getLocalStorageItem('scrap_cards') || {};
+		const scrapCardsOrder = getLocalStorageItem('scrap_cards_order') || [];
+		const scrapCardsArray = scrapCardsOrder.map(id => <Card key={id} cardInfo={scarpCardsObject[id]} />);
+		
 		return scrapCardsArray;
 	};
 
@@ -47,19 +41,23 @@ const App = () => {
 	};
 
 	useEffect(() => {
-		const prevIsScrap = JSON.parse(localStorage.getItem('is_scrap'));
+		const prevIsScrap = getLocalStorageItem('is_scrap');
 
 		dispatch(getCards(pageNum));
 		setIsScrap(prevIsScrap);
 	}, []);
 
 	useEffect(() => {
-		window.addEventListener('scroll', handleWindowScroll);
+		if (isDone) {
+			window.onscroll = null;
+		} else {
+			window.onscroll = () => handleWindowScroll(pageNum);
+		}
 
 		return () => {
-			window.removeEventListener('scroll', handleWindowScroll);
+			window.onscroll = null;
 		};
-	}, [pageNum]);
+	}, [pageNum, isDone]);
 
 	return (
 		<div className='container'>
