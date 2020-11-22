@@ -16,7 +16,7 @@ const App = () => {
 		let scrollPosY = document.documentElement.scrollTop;
 		let screenHeight = window.innerHeight;
 
-		if (scrollPosY + screenHeight >= pageHeight - 300) {
+		if (scrollPosY + screenHeight >= pageHeight - 400) {
 			if (isDone) {
 				window.removeEventListener('scroll', handleWindowScroll);
 			} else {
@@ -25,14 +25,23 @@ const App = () => {
 		}
 	}, 250);
 
-	const renderCards = () => {
+	const renderScrapCards = () => {
+		const scrapCardsArray = [];
+		const scarpCardsObject = JSON.parse(localStorage.getItem('scrap_cards'));
+
+		_.forOwn(scarpCardsObject, (cardInfo, key) => {
+			scrapCardsArray.push(<Card key={key} cardInfo={cardInfo} />)
+		});
+
+		return scrapCardsArray;
+	};
+
+	const renderUserCards = () => {
 		const cardsArray = [];
 
 		_.forOwnRight(cards, (cardInfo, key) => {
 			cardsArray.push(<Card key={key} cardInfo={cardInfo} />)
 		});
-
-		console.log(cardsArray);
 
 		return cardsArray;
 	};
@@ -56,8 +65,8 @@ const App = () => {
 			</div>
 			<div className='cards-wrap'>
 				{isScrap 
-					? ''
-					: renderCards()
+					? renderScrapCards()
+					: renderUserCards()
 				}
 			</div>
 		</div>
