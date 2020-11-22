@@ -1,13 +1,27 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { useSnackbar } from 'notistack';
 import { onScrapCard, offScrapCard } from '../store/actions';
 import './Card.scss';
 
 const Card = ({ cardInfo }) => {
 	const dispatch = useDispatch();
+	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 	const { id, image_url, nickname, profile_image_url, is_scrap } = cardInfo;
-	const handleOnScrapCard = () => dispatch(onScrapCard(id));
-	const handleOffScrapCard = () => dispatch(offScrapCard(id));
+	
+	const handleOnScrapCard = () => {
+		dispatch(onScrapCard(id));
+		
+		closeSnackbar();
+		enqueueSnackbar('스크랩을 완료했습니다.', { variant: 'info', autoHideDuration: 1000 });	
+	}
+	
+	const handleOffScrapCard = () => {
+		dispatch(offScrapCard(id));
+
+		closeSnackbar();
+		enqueueSnackbar('스크랩을 취소했습니다.', {variant: 'error', autoHideDuration: 1000 });
+	}
 
 	return (
 		<div className='card-wrap'>
