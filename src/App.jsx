@@ -47,7 +47,10 @@ const App = () => {
 	};
 
 	useEffect(() => {
+		const prevIsScrap = JSON.parse(localStorage.getItem('is_scrap'));
+
 		dispatch(getCards(pageNum));
+		setIsScrap(prevIsScrap);
 	}, []);
 
 	useEffect(() => {

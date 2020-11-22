@@ -4,7 +4,6 @@ import { GET_CARDS, ON_SCRAP_CARD, OFF_SCRAP_CARD } from '../actionTypes';
 const initialState = {
 	cards: {},
 	pageNum: 1,
-	isScrap: false,
 	isDone: false,
 };
 
