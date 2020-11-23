@@ -23,17 +23,17 @@ npm run build : 배포 파일을 생성합니다.
 
 ### 4. 프론트 데이터 설명
  - cards
-	- Redux 데이터입니다. 
-	- 서버에서 전달받은 배열 형태의 카드정보를 변형해 객체 형태로 가지고 있습니다.
-	- cards: { id_1: { id_1의 카드 정보}, id_2: { id_2의 카드 정보 }, ... }
+  - Redux 데이터입니다. 
+  - 서버에서 전달받은 배열 형태의 카드정보를 변형해 객체 형태로 가지고 있습니다.
+  - cards: { id_1: { id_1의 카드 정보}, id_2: { id_2의 카드 정보 }, ... }
  - scrap_cards
-	- localStorage의 데이터입니다.
-	- cards 데이터와 마찬가지로 객체 형태입니다.
-	- scrap_cards : { id_1: { id_1의 카드 정보 }, id_2: { id_2의 카드 정보 } }
+  - localStorage의 데이터입니다.
+  - cards 데이터와 마찬가지로 객체 형태입니다.
+  - scrap_cards : { id_1: { id_1의 카드 정보 }, id_2: { id_2의 카드 정보 } }
  - scrap_cards_order
-	- localStorage의 데이터입니다.
-	- 스크랩된 카드들의 순서를 기억하기 위해 카드의 id 값을 저장합니다.
-	- scrap_cards_order : [ id_1, id_2, id_3, ... ]
+  - localStorage의 데이터입니다.
+  - 스크랩된 카드들의 순서를 기억하기 위해 카드의 id 값을 저장합니다.
+  - scrap_cards_order : [ id_1, id_2, id_3, ... ]
  - is_scrap
-	- localStorage의 데이터입니다.
-	- 스크랩보기 ON/OFF 상태를 저장하고, 페이지가 새로고침이 되어도 유지시켜줍니다.	
+  - localStorage의 데이터입니다.
+  - 스크랩보기 ON/OFF 상태를 저장하고, 페이지가 새로고침이 되어도 유지시켜줍니다.	
