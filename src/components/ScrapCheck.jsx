@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import './ScrapCheck.scss';
 
 const ScrapCheck = ({ isScrap, setIsScrap }) => {
-	const handleScrap = () => {
+	const handleScrap = useCallback(() => {
 		localStorage.setItem('is_scrap', !isScrap);	
 		setIsScrap(!isScrap);
-	}
+	}, [isScrap]);
 
 	return (
 		<div className='scrap-check-wrap' onClick={handleScrap}>

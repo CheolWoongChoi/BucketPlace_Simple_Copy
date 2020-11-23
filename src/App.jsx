@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import ScrapCheck from './components/ScrapCheck';
 import Card from './components/Card';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { getCards } from './store/actions';
 import { getLocalStorageItem } from './utils';
 import './App.scss';
@@ -10,27 +10,30 @@ import './App.scss';
 const App = () => {
 	const dispatch = useDispatch();
 	const [ isScrap, setIsScrap ] = useState(false);
-	const { cards, pageNum, isDone } = useSelector(state => state.card);
+	const { cards } = useSelector(state => state.card);
+	const { pageNum, isDone } = useSelector(state => state.card, shallowEqual);
 
-	const handleWindowScroll = _.debounce(pageNum => {
-		let pageHeight = document.body.scrollHeight;		
-		let scrollPosY = document.documentElement.scrollTop;
-		let screenHeight = window.innerHeight;
+	const handleWindowScroll = useCallback(
+		_.debounce(pageNum => {
+			let pageHeight = document.body.scrollHeight;		
+			let scrollPosY = document.documentElement.scrollTop;
+			let screenHeight = window.innerHeight;
 
-		if (scrollPosY + screenHeight >= pageHeight - 500) {
-			dispatch(getCards(pageNum));
-		}
-	}, 250);
+			if (scrollPosY + screenHeight >= pageHeight - 500) {
+				dispatch(getCards(pageNum));
+			}
+		}, 250) 
+	, []);
 
-	const renderScrapCards = () => {
+	const renderScrapCards = useCallback(() => {
 		const scarpCardsObject = getLocalStorageItem('scrap_cards') || {};
 		const scrapCardsOrder = getLocalStorageItem('scrap_cards_order') || [];
 		const scrapCardsArray = scrapCardsOrder.map(id => <Card key={id} cardInfo={scarpCardsObject[id]} />);
 		
 		return scrapCardsArray;
-	};
+	}, []);
 
-	const renderUserCards = () => {
+	const renderUserCards = useCallback(() => {
 		const cardsArray = [];
 
 		_.forOwnRight(cards, (cardInfo, key) => {
@@ -38,7 +41,7 @@ const App = () => {
 		});
 
 		return cardsArray;
-	};
+	}, [cards]);
 
 	useEffect(() => {
 		const prevIsScrap = getLocalStorageItem('is_scrap');
