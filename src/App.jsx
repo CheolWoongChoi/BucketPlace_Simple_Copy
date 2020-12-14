@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import React, { useState, useEffect, useCallback } from 'react';
-import ScrapCheck from './components/ScrapCheck';
-import Card from './components/Card';
+import ScrapCheck from 'components/ScrapCheck';
+import Card from 'components/Card';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { getCards } from './store/actions';
-import { getLocalStorageItem } from './utils';
+import { getCards } from 'actions';
+import { getLocalStorageItem } from 'utils';
 import './App.scss';
 
 const App = () => {

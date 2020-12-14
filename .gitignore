@@ -1,0 +1,7 @@
+
+# 디렉토리
+/build
+/node_modules
+
+# 파일
+package-lock.json

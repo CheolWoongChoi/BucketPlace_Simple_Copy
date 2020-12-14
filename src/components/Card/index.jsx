@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
-import { onScrapCard, offScrapCard } from '../store/actions';
+import { onScrapCard, offScrapCard } from 'actions';
 import './Card.scss';
 
 const Card = ({ cardInfo }) => {

@@ -1,6 +1,6 @@
 
-import { GET_CARDS, ON_SCRAP_CARD, OFF_SCRAP_CARD } from '../actionTypes';
-import { getLocalStorageItem, setLocalStorageItem } from '../../utils';
+import { GET_CARDS, ON_SCRAP_CARD, OFF_SCRAP_CARD } from 'actionTypes';
+import { getLocalStorageItem, setLocalStorageItem } from 'utils';
 
 const initialState = {
 	cards: {},
