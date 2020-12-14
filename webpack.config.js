@@ -27,7 +27,7 @@ module.exports = function(env, argv) {
 			path: path.resolve(__dirname, 'build')
 		},
 		devServer: {
-			port: 3030,
+			port: 3031,
 			hot: true,
 			open: true,
 			historyApiFallback: true

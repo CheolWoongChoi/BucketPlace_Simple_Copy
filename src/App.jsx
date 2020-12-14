@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import React, { useState, useEffect, useCallback } from 'react';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import ScrapCheck from 'components/ScrapCheck';
 import Card from 'components/Card';
-import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { getCards } from 'actions';
 import { getLocalStorageItem } from 'utils';
 import './App.scss';
@@ -10,7 +10,7 @@ import './App.scss';
 const App = () => {
 	const dispatch = useDispatch();
 	const [ isScrap, setIsScrap ] = useState(false);
-	const { cards } = useSelector(state => state.card);
+	const { cards, scrapCards } = useSelector(state => state.card);
 	const { pageNum, isDone } = useSelector(state => state.card, shallowEqual);
 
 	const handleWindowScroll = useCallback(
@@ -19,26 +19,28 @@ const App = () => {
 			let scrollPosY = document.documentElement.scrollTop;
 			let screenHeight = window.innerHeight;
 
-			if (scrollPosY + screenHeight >= pageHeight - 500) {
+			if (scrollPosY + screenHeight >= pageHeight * 0.65) {
 				dispatch(getCards(pageNum));
 			}
 		}, 250) 
 	, []);
 
 	const renderScrapCards = useCallback(() => {
-		const scarpCardsObject = getLocalStorageItem('scrap_cards') || {};
-		const scrapCardsOrder = getLocalStorageItem('scrap_cards_order') || [];
-		const scrapCardsArray = scrapCardsOrder.map(id => <Card key={id} cardInfo={scarpCardsObject[id]} />);
+		const scrapCardsArray = [];
+
+		for (let [key, card] of scrapCards.entries()) {
+			scrapCardsArray.push(<Card key={key} card={card} isScrapCard />);
+		}
 		
 		return scrapCardsArray;
-	}, []);
+	}, [scrapCards]);
 
 	const renderUserCards = useCallback(() => {
 		const cardsArray = [];
 
-		_.forOwnRight(cards, (cardInfo, key) => {
-			cardsArray.push(<Card key={key} cardInfo={cardInfo} />)
-		});
+		for (let [key, card] of cards.entries()) {
+			cardsArray.push(<Card key={key} card={card} />);
+		}
 
 		return cardsArray;
 	}, [cards]);

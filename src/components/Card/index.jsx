@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
-import { onScrapCard, offScrapCard } from 'actions';
+import { deleteCard, onScrapCard, offScrapCard } from 'actions';
 import './Card.scss';
 
-const Card = ({ cardInfo }) => {
+const Card = ({ card, isScrapCard }) => {
 	const dispatch = useDispatch();
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-	const { id, image_url, nickname, profile_image_url, is_scrap } = cardInfo;
+	const { id, image_url, nickname, profile_image_url, is_scrap } = card;
 	
 	const handleOnScrapCard = useCallback(() => {
 		dispatch(onScrapCard(id));
@@ -23,6 +23,10 @@ const Card = ({ cardInfo }) => {
 		enqueueSnackbar('스크랩을 취소했습니다.', {variant: 'error', autoHideDuration: 1000 });
 	}, [id]);
 
+	const handleDeleteCard = () => {
+		dispatch(deleteCard(id));
+	}
+
 	return (
 		<div className='card-wrap'>
 			<div className='profile-wrap'>
@@ -30,6 +34,10 @@ const Card = ({ cardInfo }) => {
 				<span className='nickname'>{nickname}</span>
 			</div>
 			<div className='contents-wrap'>
+				{isScrapCard 
+					? '' 
+					: <button className='delete-btn' onClick={handleDeleteCard}>x</button>
+				}
 				<img className='img-interior' src={image_url} alt='집 이미지' />
 				{is_scrap 
 					? <img 
