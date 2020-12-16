@@ -14,12 +14,12 @@ const App = () => {
 	const { pageNum, isDone } = useSelector(state => state.card, shallowEqual);
 
 	const handleWindowScroll = useCallback(
-		_.debounce(pageNum => {
+		_.throttle(pageNum => {
 			let pageHeight = document.body.scrollHeight;		
 			let scrollPosY = document.documentElement.scrollTop;
 			let screenHeight = window.innerHeight;
 
-			if (scrollPosY + screenHeight >= pageHeight * 0.65) {
+			if (scrollPosY + screenHeight >= pageHeight * 0.7) {
 				dispatch(getCards(pageNum));
 			}
 		}, 250) 
