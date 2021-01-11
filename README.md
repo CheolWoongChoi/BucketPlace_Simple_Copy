@@ -1,4 +1,4 @@
-# 버킷플레이스 2020 웹 Simple Copy
+# 버킷플레이스 Web Simple Copy
 
 ### 1. 프로젝트 명령어
 ```
