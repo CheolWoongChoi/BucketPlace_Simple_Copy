@@ -9,6 +9,8 @@ https://bucketplace-web-simple-copy.web.app/
 - 스크랩 기능
 - 무한 스크롤링 (GET API Request)
 
+<br />
+
 ### 프로젝트 명령어
 ```
 npm install : 프로젝트를 설치합니다.
