@@ -1,9 +1,15 @@
-import React, { useCallback } from 'react';
+import * as React from 'react';
+import { useCallback } from 'react';
 import './ScrapCheck.scss';
 
-const ScrapCheck = ({ isScrap, setIsScrap }) => {
+type ScrapCheckProps = {
+	isScrap: boolean;
+	setIsScrap: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function ScrapCheck ({ isScrap, setIsScrap }: ScrapCheckProps) {
 	const handleScrap = useCallback(() => {
-		localStorage.setItem('is_scrap', !isScrap);	
+		localStorage.setItem('is_scrap', String(!isScrap));	
 		setIsScrap(!isScrap);
 	}, [isScrap]);
 

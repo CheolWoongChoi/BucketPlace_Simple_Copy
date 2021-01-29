@@ -1,31 +1,31 @@
-import _ from 'lodash';
-import React, { useState, useEffect, useCallback } from 'react';
+import * as _ from 'lodash';
+import * as React from 'react'; 
+import { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import ScrapCheck from 'components/ScrapCheck';
 import Card from 'components/Card';
-import { getCards } from 'actions';
+import { RootState } from 'store';
+import { getCardsThunk } from 'store/card';
 import { getLocalStorageItem } from 'utils';
 import './App.scss';
 
-const App = () => {
+function App () {
 	const dispatch = useDispatch();
 	const [ isScrap, setIsScrap ] = useState(false);
-	const { cards, scrapCards } = useSelector(state => state.card);
-	const { pageNum, isDone } = useSelector(state => state.card, shallowEqual);
+	const { cards, scrapCards } = useSelector((state: RootState) => state.card);
+	const { pageNum, isDone } = useSelector((state: RootState) => state.card);
 
-	const handleWindowScroll = useCallback(
-		_.throttle(pageNum => {
-			let pageHeight = document.body.scrollHeight;		
-			let scrollPosY = document.documentElement.scrollTop;
-			let screenHeight = window.innerHeight;
+	const handleWindowScroll = _.throttle(pageNum => {
+		let pageHeight = document.body.scrollHeight;		
+		let scrollPosY = document.documentElement.scrollTop;
+		let screenHeight = window.innerHeight;
 
-			if (scrollPosY + screenHeight >= pageHeight * 0.7) {
-				dispatch(getCards(pageNum));
-			}
-		}, 250) 
-	, []);
-
-	const renderScrapCards = useCallback(() => {
+		if (scrollPosY + screenHeight >= pageHeight * 0.7) {
+			dispatch(getCardsThunk(pageNum));
+		}
+	}, 250);
+	
+	const renderScrapCards = () => {
 		const scrapCardsArray = [];
 
 		for (let [key, card] of scrapCards.entries()) {
@@ -33,9 +33,9 @@ const App = () => {
 		}
 		
 		return scrapCardsArray;
-	}, [scrapCards]);
+	}
 
-	const renderUserCards = useCallback(() => {
+	const renderUserCards = () => {
 		const cardsArray = [];
 
 		for (let [key, card] of cards.entries()) {
@@ -43,12 +43,12 @@ const App = () => {
 		}
 
 		return cardsArray;
-	}, [cards]);
+	};
 
 	useEffect(() => {
-		const prevIsScrap = getLocalStorageItem('is_scrap');
+		const prevIsScrap = Boolean(getLocalStorageItem('is_scrap'));
 
-		dispatch(getCards(pageNum));
+		dispatch(getCardsThunk(pageNum));
 		setIsScrap(prevIsScrap);
 	}, []);
 

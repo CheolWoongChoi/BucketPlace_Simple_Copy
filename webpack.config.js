@@ -10,24 +10,22 @@ module.exports = function(env, argv) {
 	return {
 		mode: devMode ? 'development' : 'production',
 		resolve: {
-			extensions: ['.js', '.jsx'],
+			extensions: ['.js', '.jsx', '.ts', '.tsx'],
 			alias: {
 				components: path.resolve(__dirname, 'src/components'),
-				actionTypes: path.resolve(__dirname, 'src/store/actionTypes'),
-				actions: path.resolve(__dirname, 'src/store/actions'),
-				reducers: path.resolve(__dirname, 'src/store/reducers'),
+				store: path.resolve(__dirname, 'src/store'),
 				utils: path.resolve(__dirname, 'src/utils')
 			}
 		},
 		entry: {
-			app: './index.jsx'
+			app: './index'
 		},
 		output: {
 			filename: '[name].js',
 			path: path.resolve(__dirname, 'build')
 		},
 		devServer: {
-			port: 3031,
+			port: 3030,
 			hot: true,
 			open: true,
 			historyApiFallback: true
@@ -35,15 +33,10 @@ module.exports = function(env, argv) {
 		module: {
 			rules: [
 				{
-					test: /\.jsx?$/,
-					exclude: /(node_modules|bower_components)/,
-					use: [{
-						loader: 'babel-loader',
-						options: {
-							presets: ['@babel/preset-env', '@babel/preset-react'],
-							plugins: ['@babel/plugin-proposal-class-properties', '@babel/plugin-transform-runtime', ],
-						}
-					}]
+					test: /\.tsx?$/,
+					use: [
+						{ loader: 'ts-loader'},
+					]
 				},
 				{
 					test: /\.s[ac]ss$/,
@@ -55,6 +48,15 @@ module.exports = function(env, argv) {
 						},
 						'sass-loader'
 					]
+				},
+				{
+					test: /\.(jpe?g|png|gif|svg)$/,
+					use: [{
+						loader: 'file-loader',
+						options: {
+							esModule: false
+						}
+					}]
 				}
 			]
 		},

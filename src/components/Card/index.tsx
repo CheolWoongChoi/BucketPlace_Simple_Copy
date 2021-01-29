@@ -1,10 +1,16 @@
-import React, { useCallback } from 'react';
+import * as React from 'react';
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
-import { deleteCard, onScrapCard, offScrapCard } from 'actions';
+import { deleteCard, onScrapCard, offScrapCard, CardType } from 'store/card';
 import './Card.scss';
 
-const Card = ({ card, isScrapCard }) => {
+type CardProps = {
+	card: CardType;
+	isScrapCard?: boolean;
+}
+
+function Card({ card, isScrapCard }: CardProps) {
 	const dispatch = useDispatch();
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 	const { id, image_url, nickname, profile_image_url, is_scrap } = card;

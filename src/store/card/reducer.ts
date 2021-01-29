@@ -1,22 +1,22 @@
 
-import { GET_CARDS, DELETE_CARD, ON_SCRAP_CARD, OFF_SCRAP_CARD } from 'actionTypes';
+import { GET_CARDS, DELETE_CARD, ON_SCRAP_CARD, OFF_SCRAP_CARD } from './actions';
+import { CardType, CardState, CardAction } from './type';
 import { getLocalStorageItem, setLocalStorageItem } from 'utils';
 
-const initialState = {
-	cards: new Map(),
-	scrapCards: getLocalStorageItem('scrap_cards') || new Map(),
+const initialState: CardState = {
+	cards: new Map<number | string, CardType>(),
+	scrapCards: getLocalStorageItem('scrap_cards') || new Map<number | string, CardType>(),
 	pageNum: 1,
 	isDone: false,
 };
 
-export default function (state = initialState, action) {
-	const { type, payload } = action;
+export default function (state = initialState, action: CardAction) {
 	const { cards, pageNum, scrapCards } = state;
 	
-	switch(type) {
+	switch(action.type) {
 		case GET_CARDS: {
-			if (payload.length) {
-				payload.map(card => {
+			if (action.payload.length) {
+				action.payload.map((card: CardType) => {
 					const isScrap = scrapCards.get(card.id) ? true : false;		
 					cards.set(card.id, { ...card, is_scrap: isScrap });
 				});
@@ -34,7 +34,7 @@ export default function (state = initialState, action) {
 			}
 		}
 		case DELETE_CARD: {
-			cards.delete(payload);
+			cards.delete(action.payload);
 
 			return {
 				...state,
@@ -42,10 +42,10 @@ export default function (state = initialState, action) {
 			}
 		}
 		case ON_SCRAP_CARD: {
-			const card = cards.get(payload);
+			const card = cards.get(action.payload)!;
 			card.is_scrap = true;
 
-			scrapCards.set(payload, card);
+			scrapCards.set(action.payload, card);
 			setLocalStorageItem('scrap_cards', scrapCards);
 
 			return {
@@ -55,9 +55,9 @@ export default function (state = initialState, action) {
 			};
 		}
 		case OFF_SCRAP_CARD: {
-			cards.get(payload)['is_scrap'] = false;
+			cards.get(action.payload)!['is_scrap'] = false;
 			
-			scrapCards.delete(payload);
+			scrapCards.delete(action.payload);
 			setLocalStorageItem('scrap_cards', scrapCards);
 				
 			return {
