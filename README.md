@@ -23,7 +23,8 @@ npm run build : 배포 파일을 생성합니다.
 <br />
 
 ### 개발 스택
-- React
+- TypeScript
+- React (Hooks)
 - Redux
 - Redux-thunk
 - notistack
