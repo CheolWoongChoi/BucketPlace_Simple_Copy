@@ -47,7 +47,7 @@ module.exports = function(env, argv) {
 							options: {
 								importLoaders: 1, 
 								modules: {
-									localIdentName: '[path][name]__[local]--[hash:base64:5]',
+									localIdentName: '[hash:base64:5]',
 								},
 								url: false,
 							} 

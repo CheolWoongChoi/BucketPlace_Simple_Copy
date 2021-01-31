@@ -68,11 +68,11 @@ function App () {
 	}, [pageNum, isDone]);
 
 	return (
-		<div className='container'>
-			<div className='top'>
+		<div className={cx('container')}>
+			<div className={cx('top')}>
 				<ScrapCheck isScrap={isScrap} setIsScrap={setIsScrap} />
 			</div>
-			<div className='cards-wrap'>
+			<div className={cx('cards-wrap')}>
 				{isScrap 
 					? renderScrapCards()
 					: renderUserCards()
