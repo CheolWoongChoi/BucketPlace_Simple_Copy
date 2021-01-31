@@ -7,7 +7,10 @@ import Card from 'components/Card';
 import { RootState } from 'store';
 import { getCardsThunk } from 'store/card';
 import { getLocalStorageItem } from 'utils';
-import './App.scss';
+import classNames from 'classnames/bind';
+import styles from './App.scss';
+
+const cx = classNames.bind(styles);
 
 function App () {
 	const dispatch = useDispatch();

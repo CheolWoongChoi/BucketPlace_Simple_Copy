@@ -44,7 +44,26 @@ module.exports = function(env, argv) {
 						devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 
 						{
 							loader: 'css-loader',
-							options: { url: false, sourceMap: true } 
+							options: {
+								importLoaders: 1, 
+								modules: {
+									localIdentName: '[path][name]__[local]--[hash:base64:5]',
+								},
+								url: false,
+							} 
+						},
+						{
+							loader: 'postcss-loader',
+							options: {
+								postcssOptions: {
+									plugins: [
+										[
+											'autoprefixer', 
+											{} 
+										],
+									]
+								}
+							}
 						},
 						'sass-loader'
 					]
