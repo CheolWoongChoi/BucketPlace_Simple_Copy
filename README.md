@@ -31,6 +31,9 @@ npm run build : 배포 파일을 생성합니다.
 	- Material-UI 기반 Snackbar
 	- https://github.com/iamhosseindhv/notistack
 - lodash
-- axios 	
+- axios 
+- Sass
+- CSS-Module
+- PostCSS (autoprefixer)
 
 <br />
