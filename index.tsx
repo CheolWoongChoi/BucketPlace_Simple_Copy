@@ -6,7 +6,7 @@ import rootReducer from './src/store';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { SnackbarProvider } from 'notistack';
-import { composeWithDevTools } from 'redux-devtools-extension/logOnly';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
 const store = createStore(
 	rootReducer,

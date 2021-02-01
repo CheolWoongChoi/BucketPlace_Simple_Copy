@@ -2,6 +2,9 @@
 # 디렉토리
 /build
 /node_modules
+.firebase
 
 # 파일
 package-lock.json
+.firebaserc
+firebase.json
