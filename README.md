@@ -26,7 +26,7 @@ npm run build : 배포 파일을 생성합니다.
 - TypeScript
 - React (Hooks)
 - Redux
-- Redux-thunk
+- Redux-Saga
 - notistack
 	- Material-UI 기반 Snackbar
 	- https://github.com/iamhosseindhv/notistack
@@ -34,6 +34,5 @@ npm run build : 배포 파일을 생성합니다.
 - axios 
 - Sass
 - CSS-Module
-- PostCSS (autoprefixer)
 
 <br />
