@@ -5,7 +5,7 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import ScrapCheck from 'components/ScrapCheck';
 import Card from 'components/Card';
 import { RootState } from 'store';
-import { getCardsThunk } from 'store/card';
+import { getCards } from 'store/card';
 import { getLocalStorageItem } from 'utils';
 import classNames from 'classnames/bind';
 import styles from './App.scss';
@@ -24,7 +24,7 @@ function App () {
 		let screenHeight = window.innerHeight;
 
 		if (scrollPosY + screenHeight >= pageHeight * 0.7) {
-			dispatch(getCardsThunk(pageNum));
+			dispatch(getCards(pageNum));
 		}
 	}, 250);
 	
@@ -51,9 +51,9 @@ function App () {
 	useEffect(() => {
 		const prevIsScrap = Boolean(getLocalStorageItem('is_scrap'));
 
-		dispatch(getCardsThunk(pageNum));
+		dispatch(getCards(pageNum));
 		setIsScrap(prevIsScrap);
-	}, []);
+	}, [dispatch]);
 
 	useEffect(() => {
 		if (isDone) {
