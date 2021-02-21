@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useCallback } from 'react';
+import { useCallback, memo, Dispatch, SetStateAction } from 'react';
 import classNames from 'classnames/bind';
 import styles from './ScrapCheck.scss';
 
@@ -7,14 +7,14 @@ const cx = classNames.bind(styles);
 
 type ScrapCheckProps = {
 	isScrap: boolean;
-	setIsScrap: React.Dispatch<React.SetStateAction<boolean>>;
+	setIsScrap: Dispatch<SetStateAction<boolean>>;
 }
 
 function ScrapCheck ({ isScrap, setIsScrap }: ScrapCheckProps) {
-	const handleScrap = useCallback(() => {
+	const handleScrap =() => {
 		localStorage.setItem('is_scrap', String(!isScrap));	
 		setIsScrap(!isScrap);
-	}, [isScrap]);
+	};
 
 	return (
 		<div className={cx('scrap-check-wrap')} onClick={handleScrap}>
@@ -26,4 +26,4 @@ function ScrapCheck ({ isScrap, setIsScrap }: ScrapCheckProps) {
 	);
 }
 
-export default ScrapCheck;
+export default memo(ScrapCheck);

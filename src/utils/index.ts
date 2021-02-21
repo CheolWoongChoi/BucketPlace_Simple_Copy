@@ -1,9 +1,19 @@
 import { CardType } from 'store/card';
 
 export const getLocalStorageItem = (item: string) => {
-	const obj: CardType | undefined = JSON.parse(localStorage.getItem(item)!);
+	const obj: { [key: number]: CardType } | undefined = JSON.parse(localStorage.getItem(item)!);
 	
-	return obj ? new Map(Object.entries(obj)) : null;
+	if (obj) {
+		const map = new Map();
+		
+		for (let prop in obj) {
+			map.set(Number(prop), obj[prop]);
+		}
+		
+		return map;
+	} 
+
+	return null;
 }
 
 export const setLocalStorageItem = (item: string, map: Map<number, CardType>) => {

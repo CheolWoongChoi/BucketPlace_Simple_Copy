@@ -14,8 +14,8 @@ const initialState: CardState = {
 	loading: false,
 	error: false,
 	errorDesc: null,
-	cards: new Map<number | string, CardType>(),
-	scrapCards: getLocalStorageItem('scrap_cards') || new Map<number | string, CardType>(),
+	cards: new Map<number, CardType>(),
+	scrapCards: getLocalStorageItem('scrap_cards') || new Map<number, CardType>(),
 	pageNum: 1,
 	isDone: false,
 };

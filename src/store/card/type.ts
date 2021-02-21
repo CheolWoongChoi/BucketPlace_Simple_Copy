@@ -20,7 +20,7 @@ export type CardState = {
 	loading: boolean;
 	error: boolean;
 	errorDesc: string | null;
-	cards: Map<number | string, CardType>;
+	cards: Map<number, CardType>;
 	scrapCards: any;
 	pageNum: number;
 	isDone: boolean;

@@ -15,8 +15,13 @@ const cx = classNames.bind(styles);
 function App () {
 	const dispatch = useDispatch();
 	const [ isScrap, setIsScrap ] = useState(false);
-	const { cards, scrapCards } = useSelector((state: RootState) => state.card);
-	const { pageNum, isDone } = useSelector((state: RootState) => state.card);
+	const { 
+		cards, 
+		scrapCards, 
+		pageNum, 
+		isDone,
+		error 
+	} = useSelector((state: RootState) => state.card);
 
 	const handleWindowScroll = _.throttle(pageNum => {
 		let pageHeight = document.body.scrollHeight;		
@@ -32,7 +37,7 @@ function App () {
 		const scrapCardsArray = [];
 
 		for (let [key, card] of scrapCards.entries()) {
-			scrapCardsArray.push(<Card key={key} card={card} isScrapCard />);
+			scrapCardsArray.push(<Card key={key} card={card} dispatch={dispatch} />);
 		}
 		
 		return scrapCardsArray;
@@ -42,7 +47,7 @@ function App () {
 		const cardsArray = [];
 
 		for (let [key, card] of cards.entries()) {
-			cardsArray.push(<Card key={key} card={card} />);
+			cardsArray.push(<Card key={key} card={card} isScrap={card.is_scrap} dispatch={dispatch} />);
 		}
 
 		return cardsArray;
@@ -73,10 +78,8 @@ function App () {
 				<ScrapCheck isScrap={isScrap} setIsScrap={setIsScrap} />
 			</div>
 			<div className={cx('cards-wrap')}>
-				{isScrap 
-					? renderScrapCards()
-					: renderUserCards()
-				}
+				{error && <div>에러가 발생했습니다. 새로고침을 눌러주세요.</div>}
+				{!error && isScrap ? renderScrapCards() : renderUserCards()}
 			</div>
 		</div>
 	);

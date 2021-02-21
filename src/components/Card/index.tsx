@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useCallback, memo, Dispatch } from 'react';
 import { useSnackbar } from 'notistack';
 import { deleteCard, onScrapCard, offScrapCard, CardType } from 'store/card';
 import classNames from 'classnames/bind';
@@ -10,27 +9,27 @@ const cx = classNames.bind(styles);
 
 type CardProps = {
 	card: CardType;
-	isScrapCard?: boolean;
+	isScrap?: boolean;
+	dispatch: Dispatch<any>;
 }
 
-function Card({ card, isScrapCard }: CardProps) {
-	const dispatch = useDispatch();
+function Card({ card, isScrap, dispatch }: CardProps) {
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 	const { id, image_url, nickname, profile_image_url, is_scrap } = card;
 	
-	const handleOnScrapCard = useCallback(() => {
+	const handleOnScrapCard = () => {
 		dispatch(onScrapCard(id));
 		
 		closeSnackbar();
 		enqueueSnackbar('스크랩을 완료했습니다.', { variant: 'info', autoHideDuration: 1000 });	
-	}, [id]);
+	};
 	
-	const handleOffScrapCard = useCallback(() => {
+	const handleOffScrapCard = () => {
 		dispatch(offScrapCard(id));
 
 		closeSnackbar();
 		enqueueSnackbar('스크랩을 취소했습니다.', {variant: 'error', autoHideDuration: 1000 });
-	}, [id]);
+	};
 
 	const handleDeleteCard = () => {
 		dispatch(deleteCard(id));
@@ -43,10 +42,10 @@ function Card({ card, isScrapCard }: CardProps) {
 				<span className={cx('nickname')}>{nickname}</span>
 			</div>
 			<div className={cx('contents-wrap')}>
-				{isScrapCard 
+				{/* {isScrap 
 					? '' 
 					: <button className={cx('delete-btn')} onClick={handleDeleteCard}>x</button>
-				}
+				} */}
 				<img className={cx('img-interior')} src={image_url} alt='집 이미지' />
 				{is_scrap 
 					? <img 
@@ -67,4 +66,4 @@ function Card({ card, isScrapCard }: CardProps) {
 	);
 }
 
-export default Card;
+export default memo(Card);
