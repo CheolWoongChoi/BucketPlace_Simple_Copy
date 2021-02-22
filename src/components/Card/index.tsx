@@ -17,23 +17,23 @@ function Card({ card, isScrap, dispatch }: CardProps) {
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 	const { id, image_url, nickname, profile_image_url, is_scrap } = card;
 	
-	const handleOnScrapCard = () => {
+	const handleOnScrapCard = useCallback(() => {
 		dispatch(onScrapCard(id));
 		
 		closeSnackbar();
 		enqueueSnackbar('스크랩을 완료했습니다.', { variant: 'info', autoHideDuration: 1000 });	
-	};
+	}, [id]);
 	
-	const handleOffScrapCard = () => {
+	const handleOffScrapCard = useCallback(() => {
 		dispatch(offScrapCard(id));
 
 		closeSnackbar();
 		enqueueSnackbar('스크랩을 취소했습니다.', {variant: 'error', autoHideDuration: 1000 });
-	};
+	}, [id]);
 
-	const handleDeleteCard = () => {
+	const handleDeleteCard = useCallback(() => {
 		dispatch(deleteCard(id));
-	}
+	}, [id]);
 
 	return (
 		<div className={cx('card-wrap')}>

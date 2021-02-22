@@ -11,10 +11,10 @@ type ScrapCheckProps = {
 }
 
 function ScrapCheck ({ isScrap, setIsScrap }: ScrapCheckProps) {
-	const handleScrap =() => {
+	const handleScrap = useCallback(() => {
 		localStorage.setItem('is_scrap', String(!isScrap));	
 		setIsScrap(!isScrap);
-	};
+	}, [isScrap]);
 
 	return (
 		<div className={cx('scrap-check-wrap')} onClick={handleScrap}>
