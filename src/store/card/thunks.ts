@@ -2,7 +2,7 @@ import axios from 'axios';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
 import { GET_CARDS_SUCCESS } from './actions';
-import { CardType } from './type';
+import { CardType } from './types';
 
 export function getCardsThunk(pageNum: number): ThunkAction<void, RootState, null, any> {
 	return async (dispatch: any) => {

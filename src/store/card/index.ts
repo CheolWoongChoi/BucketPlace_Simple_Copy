@@ -1,5 +1,5 @@
 
 export * from './actions';
-export * from './type';
+export * from './types';
 export * from './thunks';
 export { default } from './reducer';

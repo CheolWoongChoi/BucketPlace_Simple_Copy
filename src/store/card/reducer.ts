@@ -7,7 +7,7 @@ import {
 	ON_SCRAP_CARD, 
 	OFF_SCRAP_CARD 
 } from './actions';
-import { CardType, CardState, CardAction } from './type';
+import { CardType, CardState, CardAction } from './types';
 import { getLocalStorageItem, setLocalStorageItem } from 'utils';
 
 const initialState: CardState = {

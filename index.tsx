@@ -18,7 +18,7 @@ const store = createStore(
 		applyMiddleware(
 			thunk,
 			sagaMiddleware,
-			// logger
+			logger
 		)
 	)
 );

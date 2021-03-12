@@ -1,5 +1,7 @@
+import { AxiosResponse } from 'axios';
 import * as cardApis from 'api/card';
 import { call, put, takeEvery } from 'redux-saga/effects';
+import { CardType } from './types';
 
 export const GET_CARDS = 'GET_CARDS' as const;
 export const GET_CARDS_SUCCESS = 'GET_CARDS_SUCCESS' as const;
@@ -30,7 +32,7 @@ export const offScrapCard = (id: number) => ({
 
 function* getCardsSaga(action: ReturnType<typeof getCards>) {
 	try {
-		const res = yield call(cardApis.getCards, action.page);
+		const res: AxiosResponse<CardType[]> = yield call(cardApis.getCards, action.page);
 
 		yield put({
 			type: GET_CARDS_SUCCESS,
