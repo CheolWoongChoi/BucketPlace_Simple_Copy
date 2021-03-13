@@ -8,9 +8,9 @@ import {
 	OFF_SCRAP_CARD 
 } from './actions';
 import { CardType, CardState, CardAction } from './types';
-import { getLocalStorageItem, setLocalStorageItem } from 'utils';
+import { getLocalStorageItem, setLocalStorageItem } from 'utils/storage';
 
-const initialState: CardState = {
+export const initialState: CardState = {
 	loading: false,
 	error: false,
 	errorDesc: null,

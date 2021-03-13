@@ -6,7 +6,7 @@ import ScrapCheck from 'components/ScrapCheck';
 import Card from 'components/Card';
 import { RootState } from 'store';
 import { getCards } from 'store/card';
-import { getLocalStorageItem } from 'utils';
+import { getLocalStorageItem } from 'utils/storage';
 import classNames from 'classnames/bind';
 import styles from './App.scss';
 
@@ -48,7 +48,6 @@ function App() {
           key={key}
           card={card}
           isScrap={card.is_scrap}
-          dispatch={dispatch}
         />
       );
     }
