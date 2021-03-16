@@ -31,10 +31,10 @@ function Card({ card, isScrap }: CardProps) {
 		closeSnackbar();
 		enqueueSnackbar('스크랩을 취소했습니다.', {variant: 'error', autoHideDuration: 1000 });
 	}, []);
-
-	const handleDeleteCard = useCallback(() => {
-		dispatch(deleteCard(id));
-	}, []);
+	
+	// const handleDeleteCard = useCallback(() => {
+	// 	dispatch(deleteCard(id));
+	// }, []);
 
 	return (
 		<div className={cx('card-wrap')}>

@@ -33,12 +33,12 @@ function App() {
     const scrapCardsArray = [];
 
     for (let [key, card] of scrapCards.entries()) {
-      scrapCardsArray.push(<Card key={key} card={card} dispatch={dispatch} />);
+      scrapCardsArray.push(<Card key={key} card={card} />);
     }
 
     return scrapCardsArray;
   }, [scrapCards]);
-
+  
   const renderUserCards = useCallback(() => {
     const cardsArray = [];
 
@@ -72,7 +72,7 @@ function App() {
     return () => {
       window.onscroll = null;
     };
-  }, [pageNum, isDone]);
+  }, [pageNum, isDone, handleWindowScroll]);
 
   return (
     <div className={cx('container')}>

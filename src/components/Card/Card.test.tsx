@@ -13,10 +13,41 @@ describe('<Card />', () => {
 	}
 	const isScrap = false;
 
+	// setup
+	const setup = () => {
+		return render(
+			<Card 
+				card={card}
+				isScrap={isScrap}
+			/>
+		);
+	}
+
 	it('렌더링이 제대로 이뤄진다.', () => {	
-		const utils = render(<Card card={card} isScrap={isScrap} />);
+		const { getByText, getByAltText } = setup();
 		
-		utils.getByText(card.nickname);
-		utils.getByAltText('집 이미지');
+		getByText(card.nickname);
+		getByAltText('집 이미지');
+		getByAltText('스크랩 OFF');
 	});
+	
+	// it('스크랩 처리를 On한다.', () => {
+	// 	const { getByAltText } = setup();
+	// 	const scrapOffBtn = getByAltText('스크랩 OFF');
+		
+	// 	fireEvent.click(scrapOffBtn);
+
+	// 	// 스크랩 이미지가 바뀐다.
+	// 	getByAltText('스크랩 ON');
+		
+	// 	// store의 카드 데이터에서 scrap값이 바뀐다.
+	// });
+
+	// it('스크랩 처리를 Off한다.', () => {
+	// 	// 스크랩 이미지가 바뀐다.
+	// 	// store의 카드 데이터에서 scrap값이 바뀐다.
+	// });
+
+
+
 });

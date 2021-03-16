@@ -26,7 +26,7 @@ function render(ui: React.ReactElement, options?: Options) {
 					{children}
 				</SnackbarProvider>
 			</Provider>
-		)
+		);
 	}
 
 	return rtlRender(ui, { wrapper: Wrapper, ...options?.renderOptions })
